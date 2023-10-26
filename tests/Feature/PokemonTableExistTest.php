@@ -10,12 +10,12 @@ use Tests\TestCase;
 
 class PokemonTableExistTest extends TestCase
 {
-    
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
-    {
+    public function test_pokemons_table_exist(): void
+    {   
         // 運行迁移
         Artisan::call('migrate');
     
