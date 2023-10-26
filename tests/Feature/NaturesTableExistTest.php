@@ -14,7 +14,7 @@ class NaturesTableExistTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_natures_table_exist(): void
     {   
         // 運行迁移
         Artisan::call('migrate');
