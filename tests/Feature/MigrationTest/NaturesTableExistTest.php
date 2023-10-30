@@ -11,9 +11,7 @@ use Tests\TestCase;
 class NaturesTableExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+    
     public function test_natures_table_exist(): void
     {   
         // 運行迁移
