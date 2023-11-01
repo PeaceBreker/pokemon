@@ -21,18 +21,23 @@ class PokemonController extends Controller
     }
     public function store(PokemonStoreRequest $request)
     {
+        // PokemonStoreRequest驗證整包$data的初步驗證
         $data = $request->all();
-
         // 自定義表单验证 PokemonStoreRequest
 
-        // 判断是否进化
+        // 執行進化邏輯傳進$data參數，進化或不進化都會回傳一個$evolution的值
         $evolution = $this->learnSkill->Evolution($data);
-        // 判斷是否可以學習技能
-        $result = $this->learnSkill->LearnSkillLogic($evolution);
+        // 以$validator接收bool值(傳入evolution的值判斷是否可以學習技能)
+        $validator = $this->learnSkill->LearnSkillLogic($evolution);
+        // 執行$validator的判斷
+        if($validator == false){
+            // 如果是false就直接回傳message
+            return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
+        }
+        // 如果是true就繼續往下跑
+        $evolution['skill'] = json_encode($evolution['skill']);
 
-        $result['skill'] = json_encode($result['skill']);
-
-        $pokemon = Pokemon::create($result);
+        $pokemon = Pokemon::create($evolution);
 
         return ['message' => 'Pokemon created successfully', 'pokemons' => $pokemon, 201];
 

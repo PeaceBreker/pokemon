@@ -14,12 +14,13 @@ class PokemonService
         $skillTags = Skilltag::where('race_id', $race)->pluck('skill_id')->all();
         $skill = $evolution['skill'];
         $skill = array_map('intval', $skill);
-
-        foreach ($skill as $skills) {
-            if (!in_array($skills, $skillTags)) {
-                return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
-            }
-        }
+        // $result接收一個bool判斷
+        $result = SkillLogic($skill,$skillTags);
+        if($result == true){
+            // 如果是true就把資料原路丟回
+            return true;
+        }   // 如果是false也把資料原路丟回
+        else{return false;}
     }
     public function Evolution($data)
     {
@@ -47,6 +48,7 @@ class PokemonService
             }
             $chain = $chain['evolves_to'][0];
         }
+        return $data;
     }
 }
 

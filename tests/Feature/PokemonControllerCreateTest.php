@@ -44,6 +44,7 @@ class PokemonControllerCreateTest extends TestCase
         ];
         // 发送 POST 请求到控制器的 API 端点
         $response = $this->post('/api/pokemons', $pokemonData);
+
         //dd($response);
         // 断言响应状态码是否为 200
         $response->assertStatus(200);
