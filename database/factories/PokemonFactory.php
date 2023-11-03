@@ -19,10 +19,10 @@ class PokemonFactory extends Factory
         return [
             'name' => 'Luka',
             'level' => '30',
-            'nature_id' => 6,
-            'race_id' => 4,
-            'ability_id' => 6,
-            'skill' => "[6 ,7 ,8 ,9]",
+            'nature_id' => 1,
+            'race_id' => 1,
+            'ability_id' => 1,
+            'skill' => "[1 ,2 ,3 ,4]",
         ];
     }
 }
