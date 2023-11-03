@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Pokemon;
 use App\Models\Race;
 use App\Models\Skilltag;
 use Illuminate\Support\Facades\Http;
@@ -22,10 +23,21 @@ class PokemonService
         }   // 如果是false也把資料原路丟回
         else{return false;}
     }
-    public function Evolution($data)
+    public function Evolution($data,$id)
     {
-        $targetLevel = $data['level'];
-        $raceId = $data['race_id'];
+        if($id == false){
+            $targetLevel = $data['level'];
+            $raceId = $data['race_id'];
+        }
+        else{
+            $pokemon = Pokemon::find($id);
+            $targetLevel = $data['level'];
+            $raceId = $pokemon['race_id'];
+        }
+        //不確定邏輯是否正確，程式碼保留
+        //$pokemon = Pokemon::find($id);
+        //$targetLevel = $data['level'];
+        //$raceId = $pokemon['race_id'];
         $pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon-species/{$raceId}";
         $response = Http::get($pokemonApiUrl);
 

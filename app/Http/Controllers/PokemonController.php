@@ -26,11 +26,11 @@ class PokemonController extends Controller
         // 自定義表单验证 PokemonStoreRequest
 
         // 執行進化邏輯傳進$data參數，進化或不進化都會回傳一個$evolution的值
-        $evolution = $this->learnSkill->Evolution($data);
+        $evolution = $this->learnSkill->Evolution($data,false);
         // 以$validator接收bool值(傳入evolution的值判斷是否可以學習技能)
         $validator = $this->learnSkill->LearnSkillLogic($evolution);
         // 執行$validator的判斷
-        if($validator == false){
+        if ($validator == false) {
             // 如果是false就直接回傳message
             return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
         }
@@ -75,47 +75,23 @@ class PokemonController extends Controller
     {
         $pokemon = Pokemon::find($id);
         $data = $request->all();
-        if ($request->has('level')) {
-            $targetLevel = $data;
-            $raceId = $pokemon->race_id;
-            $pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon-species/{$raceId}";
-            $response = Http::get($pokemonApiUrl);
-            if ($response->successful()) {
-                $pokemonSpeciesData = $response->json();
-                $evolutionChainUrl = $pokemonSpeciesData['evolution_chain']['url'];
-
-                // 发送 "evolution_chain" 的 API 请求
-                $evolutionChainResponse = Http::get($evolutionChainUrl)->json();
-            }
-            if ($evolutionChainResponse == null) {
-                return false;
-            }
-            $chain = $evolutionChainResponse['chain'];
-            while (!empty($chain['evolves_to'])) {
-                if ($targetLevel >= $chain['evolves_to']['0']['evolution_details']['0']['min_level']) {
-                    $name = $chain['evolves_to']['0']['species']['name'];
-                    $evolvedRace = Race::where('name', $name)->first();
-                    $raceId = $evolvedRace->id;
-                }
-                $chain = $chain['evolves_to'][0];
-            }
-            $pokemon->race_id = $raceId;
+        if (!$pokemon) {
+            return response()->json(['message' => 'Pokemon not found'], 404);
         }
+        if ($request->has('level')) {
+            $this->learnSkill->Evolution($data, $id);
+        }
+
         if ($request->has('skill')) {
             $race = $pokemon->race_id;
             $skillTags = SkillTag::where('race_id', $race)->pluck('skill_id')->all();
             $skill = $data['skill'];
             $skill = array_map('intval', $skill);
 
-            foreach ($skill as $skills) {
-                if (!in_array($skills, $skillTags)) {
-                    return response()->json(['message' => 'Pokemon cannot learn these skills'], 400);
-                }
+            $result = SkillLogic($skill, $skillTags);
+            if ($result == false) {
+                return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
             }
-        }
-
-        if (!$pokemon) {
-            return response()->json(['message' => 'Pokemon not found'], 404);
         }
         // 使用 $request 的数据来更新 Pokemon 模型
         $pokemon->update($request->all());

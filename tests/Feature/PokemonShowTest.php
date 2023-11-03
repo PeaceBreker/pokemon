@@ -7,6 +7,7 @@ use App\Models\Nature;
 use App\Models\Pokemon;
 use App\Models\Race;
 use App\Models\Skill;
+use Database\Factories\PokemonFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -23,7 +24,7 @@ class PokemonShowTest extends TestCase
         Race::factory()->create(['name' => 'Bulbasaur']);
         Ability::factory()->create(['name' => '硬化']);
         Nature::factory()->create(['name' => '暴怒仔']);
-        Skill::factory()->create();
+        Skill::factory()->count(4)->create();
         Pokemon::factory()->create();
 
         $response = $this->get('/api/pokemons/2');
