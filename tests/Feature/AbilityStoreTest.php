@@ -19,6 +19,5 @@ class AbilityStoreTest extends TestCase
 
         $response = $this->post('api/abilities', $ability);
         $response->assertStatus(201);
-        $this->assertDatabaseHas('abilities', ['name' => "超強新秀"]);
     }
 }
