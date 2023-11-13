@@ -10,7 +10,7 @@ class AbilityController extends Controller
     public function store(Request $request)
     {   
         $request->validate([
-            'name' => 'required|max:100|unique:abilities',
+            'name' => 'required|max:20|unique:abilities',
         ]);
         try {
             $Ability = Ability::create([

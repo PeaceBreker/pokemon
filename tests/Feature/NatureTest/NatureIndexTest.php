@@ -2,18 +2,18 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class NaturesTableExist1 extends TestCase
+class NatureIndexTest extends TestCase
 {
+    //use DatabaseMigrations;
     /**
      * A basic feature test example.
      */
     public function test_example(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('api/natures');
 
         $response->assertStatus(200);
     }

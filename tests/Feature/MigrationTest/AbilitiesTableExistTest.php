@@ -8,18 +8,16 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class PokemonTableExistTest extends TestCase
+class AbilitiesTableExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-    public function test_pokemons_table_exist(): void
+    
+    public function test_abilities_table_exist(): void
     {   
         // 運行迁移
         Artisan::call('migrate');
     
         // 斷言數據庫中是否有預期的表
-        $this->assertTrue(Schema::hasTable('pokemons'));
+        $this->assertTrue(Schema::hasTable('abilities'));
     }
 }
