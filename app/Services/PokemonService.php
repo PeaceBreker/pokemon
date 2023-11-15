@@ -16,20 +16,21 @@ class PokemonService
         $skill = $evolution['skill'];
         $skill = array_map('intval', $skill);
         // $result接收一個bool判斷
-        $result = SkillLogic($skill,$skillTags);
-        if($result == true){
+        $result = SkillLogic($skill, $skillTags);
+        if ($result == true) {
             // 如果是true就把資料原路丟回
             return true;
-        }   // 如果是false也把資料原路丟回
-        else{return false;}
+        } // 如果是false也把資料原路丟回
+        else {
+            return false;
+        }
     }
-    public function Evolution($data,$id)
+    public function Evolution($data, $id)
     {
-        if($id == false){
+        if ($id == false) {
             $targetLevel = $data['level'];
             $raceId = $data['race_id'];
-        }
-        else{
+        } else {
             $pokemon = Pokemon::find($id);
             $targetLevel = $data['level'];
             $raceId = $pokemon['race_id'];

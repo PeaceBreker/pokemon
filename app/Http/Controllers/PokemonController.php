@@ -6,10 +6,8 @@ use App\Http\Requests\PokemonStoreRequest;
 use App\Http\Requests\PokemonUpdateRequest;
 use App\Http\Resources\PokemonResource;
 use App\Models\Pokemon;
-use App\Models\Race;
 use App\Models\Skilltag;
 use App\Services\PokemonService;
-use Illuminate\Support\Facades\Http;
 
 class PokemonController extends Controller
 {
