@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Models\Pokemon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class PokemonDestroyTest extends TestCase
+class NatureStoreTest extends TestCase
 {
     //use RefreshDatabase;
     use DatabaseMigrations;
@@ -15,12 +14,11 @@ class PokemonDestroyTest extends TestCase
      */
     public function test_example(): void
     {
-        Pokemon::factory()->create();
-        
-        $response = $this->delete('/api/pokemons/1');
+        $nature = [
+        'name' => "爆炸"            
+        ];
+        $response = $this->post('api/natures', $nature);
 
-        $response->assertStatus(200);
-
-        $this->assertDatabaseHas('pokemons', ['id' => 1]);
+        $response->assertStatus(201);
     }
 }

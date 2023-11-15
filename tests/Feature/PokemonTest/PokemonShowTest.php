@@ -7,14 +7,13 @@ use App\Models\Nature;
 use App\Models\Pokemon;
 use App\Models\Race;
 use App\Models\Skill;
-use Database\Factories\PokemonFactory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class PokemonShowTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
+    use DatabaseMigrations;
     /**
      * A basic feature test example.
      */
@@ -27,7 +26,7 @@ class PokemonShowTest extends TestCase
         Skill::factory()->count(4)->create();
         Pokemon::factory()->create();
 
-        $response = $this->get('/api/pokemons/3');
+        $response = $this->get('/api/pokemons/1');
 
         $response->assertStatus(200);
     }

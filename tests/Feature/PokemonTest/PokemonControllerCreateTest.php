@@ -7,13 +7,13 @@ use App\Models\Nature;
 use App\Models\Race;
 use App\Models\Skill;
 use App\Models\Skilltag;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class PokemonControllerCreateTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function test_example(): void
     {
