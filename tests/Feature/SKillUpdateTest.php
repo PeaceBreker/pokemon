@@ -2,20 +2,21 @@
 
 namespace Tests\Feature;
 
-use App\Models\Nature;
+use App\Models\Skill;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class NatureUpdateTest extends TestCase
+class SKillUpdateTest extends TestCase
 {
-    use DatabaseMigrations;    
+    use DatabaseMigrations;
     /**
      * A basic feature test example.
      */
     public function test_example(): void
     {
-        Nature::factory()->create();
-        $response = $this->put('api/natures/1', ['name' => "躁鬱症"]);
+        Skill::factory()->create();
+
+        $response = $this->put('/api/skills/1', ['name' => "肉蛋蔥雞"]);
 
         $response->assertStatus(200);
     }
