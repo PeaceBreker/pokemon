@@ -8,7 +8,7 @@ use Tests\TestCase;
 class NatureStoreTest extends TestCase
 {
     //use RefreshDatabase;
-    use DatabaseMigrations;
+    //use DatabaseMigrations;
     /**
      * A basic feature test example.
      */
