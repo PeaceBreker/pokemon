@@ -27,7 +27,7 @@ class PokemonShowTest extends TestCase
         Skill::factory()->count(4)->create();
         Pokemon::factory()->create();
 
-        $response = $this->get('/api/pokemons/2');
+        $response = $this->get('/api/pokemons/3');
 
         $response->assertStatus(200);
     }

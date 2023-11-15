@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class PokemonUpdateTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
@@ -19,7 +19,7 @@ class PokemonUpdateTest extends TestCase
         // 基礎假資料生成
         Pokemon::factory()->create();
 
-        $response = $this->put('api/pokemons/3' , [
+        $response = $this->put('api/pokemons/4' , [
             'name' => "西巴誰家",
             'level' => 15,
         ]);
