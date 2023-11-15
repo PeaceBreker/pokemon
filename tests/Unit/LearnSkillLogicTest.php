@@ -2,14 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Models\Ability;
-use App\Models\Nature;
-use App\Models\Race;
-use App\Models\Skill;
-use App\Models\Skilltag;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\TestCase;
 
 class LearnSkillLogicTest extends TestCase
