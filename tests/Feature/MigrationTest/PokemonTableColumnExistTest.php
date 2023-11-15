@@ -10,9 +10,7 @@ use Tests\TestCase;
 class PokemonTableColumnExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+    
     public function test_pokemons_column_exist(): void
     {
         $this->assertTrue(Schema::hasColumn('pokemons', 'name'));

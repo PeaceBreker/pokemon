@@ -7,14 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class RacesTableColumnExistTest extends TestCase
+class AbilitiesTableColumnExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-    public function test_races_column_exist(): void
+    
+    public function test_abilities_column_exist(): void
     {
-        $this->assertTrue(Schema::hasColumn('races', 'name'));
+        $this->assertTrue(Schema::hasColumn('abilities', 'name'));
     }
 }

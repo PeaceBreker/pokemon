@@ -10,9 +10,7 @@ use Tests\TestCase;
 class SkilltagsTableColumnExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+    
     public function test_skilltags_column_exist(): void
     {
         $this->assertTrue(Schema::hasColumn('skilltags', 'race_id'));

@@ -10,9 +10,7 @@ use Tests\TestCase;
 class NaturesTableColumnExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+    
     public function test_natures_column_exist(): void
     {
         $this->assertTrue(Schema::hasColumn('natures', 'name'));

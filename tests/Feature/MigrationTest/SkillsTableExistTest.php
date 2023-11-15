@@ -11,9 +11,7 @@ use Tests\TestCase;
 class SkillsTableExistTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+   
     public function test_skills_table_exist(): void
     {
        // 運行迁移
