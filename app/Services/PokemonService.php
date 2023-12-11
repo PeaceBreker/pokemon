@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Http;
 
 class PokemonService
 {
-    public function LearnSkillLogic($evolution)
+    public function learnSkillLogic($evolution)
     {
         $race = $evolution['race_id'];
         $skillTags = Skilltag::where('race_id', $race)->pluck('skill_id')->all();
         $skill = $evolution['skill'];
         $skill = array_map('intval', $skill);
-        $result = SkillLogic($skill, $skillTags);
+        $result = skillLogic($skill, $skillTags);
         if ($result == true) {
             return true;
         }
@@ -23,7 +23,7 @@ class PokemonService
             return false;
         }
     }
-    public function Evolution($data, $id)
+    public function evolution($data, $id)
     {
         if ($id == false) {
             $targetLevel = $data['level'];

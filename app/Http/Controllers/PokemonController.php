@@ -11,19 +11,19 @@ use App\Services\PokemonService;
 
 class PokemonController extends Controller
 {
-    public $learnSkill;
+    public $evolutionAndLearnSkill;
 
-    public function __construct(PokemonService $learnSkill)
+    public function __construct(PokemonService $evolutionAndLearnSkill)
     {
-        $this->learnSkill = $learnSkill;
+        $this->evolutionAndLearnSkill = $evolutionAndLearnSkill;
     }
     public function store(PokemonStoreRequest $request)
     {
         $data = $request->all();
 
-        $evolution = $this->learnSkill->Evolution($data,false);
+        $evolution = $this->evolutionAndLearnSkill->evolution($data,false);
 
-        $validator = $this->learnSkill->LearnSkillLogic($evolution);
+        $validator = $this->evolutionAndLearnSkill->learnSkillLogic($evolution);
 
         if ($validator == false) {
 
@@ -63,7 +63,7 @@ class PokemonController extends Controller
             return response()->json(['message' => 'Pokemon not found'], 404);
         }
         if ($request->has('level')) {
-            $this->learnSkill->Evolution($data, $id);
+            $this->evolutionAndLearnSkill->evolution($data, $id);
         }
 
         if ($request->has('skill')) {
@@ -72,7 +72,7 @@ class PokemonController extends Controller
             $skill = $data['skill'];
             $skill = array_map('intval', $skill);
 
-            $result = SkillLogic($skill, $skillTags);
+            $result = skillLogic($skill, $skillTags);
             if ($result == false) {
                 return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
             }
