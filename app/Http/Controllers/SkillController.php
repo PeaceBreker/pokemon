@@ -29,7 +29,6 @@ class SkillController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->input('name'));
         $request->validate([
             'name' => 'required|unique:skills|max:20',
         ]);
@@ -46,5 +45,4 @@ class SkillController extends Controller
 
         return response()->json(['message' => 'Skill updated successfully', 'data' => $skill], 200);
     }
-    //
 }

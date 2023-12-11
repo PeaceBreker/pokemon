@@ -19,20 +19,17 @@ class PokemonController extends Controller
     }
     public function store(PokemonStoreRequest $request)
     {
-        // PokemonStoreRequest驗證整包$data的初步驗證
         $data = $request->all();
-        // 自定義表单验证 PokemonStoreRequest
 
-        // 執行進化邏輯傳進$data參數，進化或不進化都會回傳一個$evolution的值
         $evolution = $this->learnSkill->Evolution($data,false);
-        // 以$validator接收bool值(傳入evolution的值判斷是否可以學習技能)
+
         $validator = $this->learnSkill->LearnSkillLogic($evolution);
-        // 執行$validator的判斷
+
         if ($validator == false) {
-            // 如果是false就直接回傳message
+
             return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
         }
-        // 如果是true就繼續往下跑
+
         $evolution['skill'] = json_encode($evolution['skill']);
 
         $pokemon = Pokemon::create($evolution);
@@ -43,14 +40,6 @@ class PokemonController extends Controller
 
     public function index()
     {
-        // 1,'1';
-        //dd(1 == '1');// int vs string
-        //php裏面 弱型別 // 他不會檢查到型別
-        // === 嚴謹模式 //會檢查到型別
-        //url id = 1   => query string  => string
-        //Sql  id = 1 => int 
-        //php 兩者相等 嚴謹模式 報錯 
-
         $pokemons = Pokemon::all();
 
         return PokemonResource::collection($pokemons);
@@ -62,10 +51,7 @@ class PokemonController extends Controller
         if (!$pokemon) {
             return response()->json(['message' => 'Pokemon not found'], 404);
         }
-        //dd($pokemon);
-        //PokemonResource::make方法接收一個Object
-        //PokemonResource::collection方法接收一個集合(many Object)
-        //底層邏輯會執行json decode接著會執行資料整理，call完 To array function最後才會把值包成一包return回來
+
         return PokemonResource::make($pokemon);
     }
 
@@ -91,7 +77,7 @@ class PokemonController extends Controller
                 return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
             }
         }
-        // 使用 $request 的数据来更新 Pokemon 模型
+
         $pokemon->update($request->all());
 
         return response()->json(['message' => 'Pokemon updated successfully', 'pokemon' => $pokemon], 200);
@@ -106,7 +92,7 @@ class PokemonController extends Controller
         }
 
         $deleted = $pokemon->delete();
-        //dd($deleted);
+
         return response()->json(['message' => 'Pokemon deleted successfully'], 200);
     }
 }

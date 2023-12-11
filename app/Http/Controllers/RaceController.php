@@ -11,8 +11,6 @@ class RaceController extends Controller
 {
     public function getRaceByName(Request $request, $name)
 {
-    // 假设你有一个名为 Race 的模型与 races 表对应
-
     $race = Race::where('name', $name)->first();
 
     if (!$race) {
@@ -34,7 +32,6 @@ class RaceController extends Controller
 
     public function getAllPokemonRaces(Request $request)
 {
-    // 假设你有一个名为 Race 的模型与 races 表对应
 
     $races = Race::all()->pluck('name');
 

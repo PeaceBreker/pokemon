@@ -13,12 +13,12 @@ class AbilityController extends Controller
             'name' => 'required|max:20|unique:abilities',
         ]);
         try {
-            $Ability = Ability::create([
+            $ability = Ability::create([
                 'name' => $request->input('name'),
             ]);
 
             return response()->json([
-                'message' => 'Ability created successfully','Ability' => $Ability], 201);
+                'message' => 'Ability created successfully','Ability' => $ability], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error occurred while creating ability'], 500);
         }
@@ -48,7 +48,6 @@ class AbilityController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        // 重新加载已更新的能力
         $updatedAbility = Ability::find($id);
 
         return response()->json([

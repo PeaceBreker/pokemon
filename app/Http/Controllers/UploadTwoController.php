@@ -32,5 +32,5 @@ class UploadTwoController extends Controller
     
 
     return response()->json(['message' => 'JSON file uploaded and data saved successfully'], 201);
-} //
+}
 }

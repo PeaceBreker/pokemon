@@ -14,10 +14,8 @@ class PokemonTableExistTest extends TestCase
     
     public function test_pokemons_table_exist(): void
     {   
-        // 運行迁移
         Artisan::call('migrate');
     
-        // 斷言數據庫中是否有預期的表
         $this->assertTrue(Schema::hasTable('pokemons'));
     }
 }
