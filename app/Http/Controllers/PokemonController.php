@@ -20,7 +20,7 @@ class PokemonController extends Controller
     }
     public function store(PokemonStoreRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $evolution = $this->evolutionAndLearnSkill->evolution($data, false);
 
@@ -59,7 +59,7 @@ class PokemonController extends Controller
     public function update(PokemonUpdateRequest $request, $id)
     {
         $pokemon = Pokemon::find($id);
-        $data = $request->all();
+        $data = $request->validated();
         if (!$pokemon) {
             return response()->json(['message' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
         }
@@ -79,7 +79,7 @@ class PokemonController extends Controller
             }
         }
 
-        $pokemon->update($request->all());
+        $pokemon->update($request->validated());
 
         return response()->json(['message' => 'Pokemon updated successfully', 'pokemon' => $pokemon], Response::HTTP_OK);
     }
