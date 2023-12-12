@@ -8,6 +8,7 @@ use App\Http\Resources\PokemonResource;
 use App\Models\Pokemon;
 use App\Models\Skilltag;
 use App\Services\PokemonService;
+use Symfony\Component\HttpFoundation\Response;
 
 class PokemonController extends Controller
 {
@@ -21,20 +22,20 @@ class PokemonController extends Controller
     {
         $data = $request->all();
 
-        $evolution = $this->evolutionAndLearnSkill->evolution($data,false);
+        $evolution = $this->evolutionAndLearnSkill->evolution($data, false);
 
         $validator = $this->evolutionAndLearnSkill->learnSkillLogic($evolution);
 
         if ($validator == false) {
 
-            return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
+            return response()->json(['message' => 'Pokémon cannot learn these skills'], Response::HTTP_BAD_REQUEST);
         }
 
         $evolution['skill'] = json_encode($evolution['skill']);
 
         $pokemon = Pokemon::create($evolution);
 
-        return ['message' => 'Pokemon created successfully', 'pokemons' => $pokemon, 201];
+        return ['message' => 'Pokemon created successfully', 'pokemons' => $pokemon, Response::HTTP_CREATED];
 
     }
 
@@ -49,7 +50,7 @@ class PokemonController extends Controller
     {
         $pokemon = Pokemon::with('nature', 'race', 'ability')->find($id);
         if (!$pokemon) {
-            return response()->json(['message' => 'Pokemon not found'], 404);
+            return response()->json(['message' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
         }
 
         return PokemonResource::make($pokemon);
@@ -60,7 +61,7 @@ class PokemonController extends Controller
         $pokemon = Pokemon::find($id);
         $data = $request->all();
         if (!$pokemon) {
-            return response()->json(['message' => 'Pokemon not found'], 404);
+            return response()->json(['message' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
         }
         if ($request->has('level')) {
             $this->evolutionAndLearnSkill->evolution($data, $id);
@@ -74,13 +75,13 @@ class PokemonController extends Controller
 
             $result = skillLogic($skill, $skillTags);
             if ($result == false) {
-                return response()->json(['message' => 'Pokémon cannot learn these skills'], 400);
+                return response()->json(['message' => 'Pokémon cannot learn these skills'], Response::HTTP_BAD_REQUEST);
             }
         }
 
         $pokemon->update($request->all());
 
-        return response()->json(['message' => 'Pokemon updated successfully', 'pokemon' => $pokemon], 200);
+        return response()->json(['message' => 'Pokemon updated successfully', 'pokemon' => $pokemon], Response::HTTP_OK);
     }
 
     public function destroy($id)
@@ -88,11 +89,11 @@ class PokemonController extends Controller
         $pokemon = Pokemon::find($id);
 
         if (!$pokemon) {
-            return response()->json(['message' => 'Pokemon not found'], 404);
+            return response()->json(['message' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
         }
 
         $deleted = $pokemon->delete();
 
-        return response()->json(['message' => 'Pokemon deleted successfully'], 200);
+        return response()->json(['message' => 'Pokemon deleted successfully'], Response::HTTP_OK);
     }
 }

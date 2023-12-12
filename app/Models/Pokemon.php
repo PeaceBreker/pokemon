@@ -20,12 +20,12 @@ class Pokemon extends Model
 
     public function ability()
     {
-        return $this->belongsTo(Ability::class,  'ability_id');
+        return $this->belongsTo(Ability::class, 'ability_id');
     }
 
     public function race()
     {
-        return $this->belongsTo(Race::class,  'race_id');
+        return $this->belongsTo(Race::class, 'race_id');
     }
 
     protected $fillable = [

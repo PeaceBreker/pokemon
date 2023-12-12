@@ -21,6 +21,6 @@ class SkillValidator implements ValidationRule
             if (!$exists) {
                 $fail('One or more skill IDs do not exist.');
             }
+        }
     }
-}
 }

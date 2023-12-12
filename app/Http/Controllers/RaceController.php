@@ -6,59 +6,60 @@ use Illuminate\Http\Request;
 use App\Models\Race;
 use App\Models\Skill;
 use App\Models\Skilltag;
+use Symfony\Component\HttpFoundation\Response;
 
 class RaceController extends Controller
 {
     public function getRaceByName(Request $request, $name)
-{
-    $race = Race::where('name', $name)->first();
+    {
+        $race = Race::where('name', $name)->first();
 
-    if (!$race) {
-        return response()->json(['message' => 'Race not found'], 404);
+        if (!$race) {
+            return response()->json(['message' => 'Race not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['race' => $race->name], Response::HTTP_OK);
     }
-
-    return response()->json(['race' => $race->name], 200);
-}
     public function getAllRaces(Request $request)
     {
         try {
             $races = Race::all();
 
-            return response()->json(['races' => $races], 200);
+            return response()->json(['races' => $races], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error occurred while fetching races from the database'], 500);
+            return response()->json(['message' => 'Error occurred while fetching races from the database'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
     public function getAllPokemonRaces(Request $request)
-{
+    {
 
-    $races = Race::all()->pluck('name');
+        $races = Race::all()->pluck('name');
 
-    return response()->json(['races' => $races], 200);
-}
+        return response()->json(['races' => $races], Response::HTTP_OK);
+    }
 
     public function getSkillsByRaceId(Request $request, $id)
-{
-    $race = Race::find($id);
+    {
+        $race = Race::find($id);
 
-    if (!$race) {
-        return response()->json(['message' => 'Race not found'], 404);
-    }
-    $raceId = $race->id;
-    $skillTags = SkillTag::where('race_id', $raceId)->get();
-    
-    $skillData = [];
-    
-    foreach ($skillTags as $skillTag) {
-        $skillId = $skillTag->skill_id;
-        $show = Skill::find($skillId);
-        $skillName = $show->name;
-        $skillData[$skillId] = $skillName;
-    }
-    
-    ksort($skillData);
+        if (!$race) {
+            return response()->json(['message' => 'Race not found'], Response::HTTP_NOT_FOUND);
+        }
+        $raceId = $race->id;
+        $skillTags = SkillTag::where('race_id', $raceId)->get();
 
-    return response()->json(['skill_data' => $skillData]);
-}
+        $skillData = [];
+
+        foreach ($skillTags as $skillTag) {
+            $skillId = $skillTag->skill_id;
+            $show = Skill::find($skillId);
+            $skillName = $show->name;
+            $skillData[$skillId] = $skillName;
+        }
+
+        ksort($skillData);
+
+        return response()->json(['skill_data' => $skillData]);
+    }
 }

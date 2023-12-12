@@ -13,7 +13,7 @@ class SkillTagFactory extends Factory
 
     public function definition(): array
     {
-        $this->num ++ ;
+        $this->num++;
         return [
             'race_id' => $this->raceId,
             'skill_id' => $this->num,

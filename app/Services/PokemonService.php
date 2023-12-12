@@ -18,8 +18,7 @@ class PokemonService
         $result = skillLogic($skill, $skillTags);
         if ($result == true) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

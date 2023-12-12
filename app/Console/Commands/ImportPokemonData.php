@@ -14,17 +14,17 @@ class ImportPokemonData extends Command
     protected $description = 'Import Pokemon data including Races and Skill Tags';
 
     public function handle()
-{
-    $startId = 1;
-    $endId = 1000;
+    {
+        $startId = 1;
+        $endId = 1000;
 
-    for ($pokemonId = $startId; $pokemonId <= $endId; $pokemonId++) {
-        $response = Http::get("https://pokeapi.co/api/v2/pokemon/$pokemonId");
-        $pokemonInfo = $response->json();
+        for ($pokemonId = $startId; $pokemonId <= $endId; $pokemonId++) {
+            $response = Http::get("https://pokeapi.co/api/v2/pokemon/$pokemonId");
+            $pokemonInfo = $response->json();
 
-        $pokemonName = $pokemonInfo['name'];
+            $pokemonName = $pokemonInfo['name'];
 
-        $existingRace = Race::where('name', $pokemonName)->first();
+            $existingRace = Race::where('name', $pokemonName)->first();
 
             $race = Race::create(['name' => $pokemonName]);
 
@@ -48,9 +48,9 @@ class ImportPokemonData extends Command
                         'skill_id' => $existingSkill->id,
                     ]);
                 }
+            }
         }
-    }
 
-    $this->info('Pokemon data imported successfully.');
-}
+        $this->info('Pokemon data imported successfully.');
+    }
 }
