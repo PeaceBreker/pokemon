@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NatureRequest;
 use App\Models\Nature;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class NatureController extends Controller
 {
-    public function store(Request $request)
+    public function store(NatureRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:20|unique:natures',
-        ]);
+        $validatedData = $request->validated();
+
         $nature = Nature::create($validatedData);
         return response()->json(
             [
@@ -30,11 +29,9 @@ class NatureController extends Controller
         return response()->json(['natures' => $natures], Response::HTTP_OK);
     }
 
-    public function update(Request $request, $id)
+    public function update(NatureRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:20|unique:natures',
-        ]);
+        $validatedData = $request->validated();
 
         $nature = Nature::find($id);
 
