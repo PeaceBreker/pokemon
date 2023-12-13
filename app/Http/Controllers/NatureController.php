@@ -14,7 +14,13 @@ class NatureController extends Controller
             'name' => 'required|max:20|unique:natures',
         ]);
         $nature = Nature::create($validatedData);
-        return response()->json(['message' => 'Nature created successfully', 'nature' => $nature], Response::HTTP_CREATED);
+        return response()->json(
+            [
+                'success' => config('http_success_message.general.created_successfully'),
+                'nature' => $nature
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     public function index()
@@ -33,11 +39,20 @@ class NatureController extends Controller
         $nature = Nature::find($id);
 
         if (!$nature) {
-            return response()->json(['message' => 'Nature not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['error' => config('http_error_message.general.not_found')],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         $nature->update($validatedData);
 
-        return response()->json(['message' => 'Nature updated successfully', 'nature' => $nature], Response::HTTP_OK);
+        return response()->json(
+            [
+                'success' => config('http_success_message.general.updated_successfully'),
+                'nature' => $nature
+            ],
+            Response::HTTP_OK
+        );
     }
 }

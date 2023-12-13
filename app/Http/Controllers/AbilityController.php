@@ -19,11 +19,14 @@ class AbilityController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Ability created successfully',
+                'success' => config('http_success_message.general.created_successfully'),
                 'Ability' => $ability
             ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error occurred while creating ability'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(
+                ['error' => config('http_error_message.general.error_creating')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -34,7 +37,10 @@ class AbilityController extends Controller
 
             return response()->json(['data' => $abilities], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error occurred while fetching abilities'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(
+                ['error' => config('http_error_message.general.error_fetching')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -54,11 +60,14 @@ class AbilityController extends Controller
             $updatedAbility = Ability::find($id);
 
             return response()->json([
-                'message' => 'Ability updated successfully',
+                'error' => config('http_success_message.general.updated_successfully'),
                 'Ability' => $updatedAbility
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error occurred while updating ability'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(
+                ['error' => config('http_error_message.general.error_updating')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

@@ -32,6 +32,9 @@ class UploadTwoController extends Controller
         }
 
 
-        return response()->json(['message' => 'JSON file uploaded and data saved successfully'], Response::HTTP_CREATED);
+        return response()->json(
+            ['success' => config('http_success_message.upload.json_file_saved_successfully')],
+            Response::HTTP_CREATED
+        );
     }
 }

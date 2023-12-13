@@ -15,7 +15,10 @@ class RaceController extends Controller
         $race = Race::where('name', $name)->first();
 
         if (!$race) {
-            return response()->json(['message' => 'Race not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['error' => config('http_error_message.general.not_found')],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         return response()->json(['race' => $race->name], Response::HTTP_OK);
@@ -27,7 +30,10 @@ class RaceController extends Controller
 
             return response()->json(['races' => $races], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error occurred while fetching races from the database'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(
+                ['error' => config('http_error_message.general.error_fetching')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -36,7 +42,9 @@ class RaceController extends Controller
 
         $races = Race::all()->pluck('name');
 
-        return response()->json(['races' => $races], Response::HTTP_OK);
+        return response()->json(
+            ['races' => $races], Response::HTTP_OK
+        );
     }
 
     public function getSkillsByRaceId(Request $request, $id)
@@ -44,7 +52,10 @@ class RaceController extends Controller
         $race = Race::find($id);
 
         if (!$race) {
-            return response()->json(['message' => 'Race not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['error' => config('http_error_message.general.not_found')],
+                Response::HTTP_NOT_FOUND
+            );
         }
         $raceId = $race->id;
         $skillTags = SkillTag::where('race_id', $raceId)->get();

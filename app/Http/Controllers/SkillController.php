@@ -18,7 +18,10 @@ class SkillController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return response()->json(['message' => 'Skill created successfully', 'data' => $skill], Response::HTTP_CREATED);
+        return response()->json(
+            ['success' => config('http_success_message.general.created_successfully'), 'data' => $skill],
+            Response::HTTP_CREATED
+        );
     }
 
     public function index()
@@ -37,13 +40,19 @@ class SkillController extends Controller
         $skill = Skill::find($id);
 
         if (!$skill) {
-            return response()->json(['message' => 'Skill not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['error' => config('http_error_message.general.not_found')],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         $skill->update([
             'name' => $request->input('name'),
         ]);
 
-        return response()->json(['message' => 'Skill updated successfully', 'data' => $skill], Response::HTTP_OK);
+        return response()->json(
+            ['success' => config('http_success_message.general.updated_successfully'), 'data' => $skill],
+            Response::HTTP_OK
+        );
     }
 }
