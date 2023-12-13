@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UploadRequest;
 use App\Models\Ability;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UploadTwoController extends Controller
 {
-    public function uploadJson(Request $request)
+    public function uploadJson(UploadRequest $request)
     {
-        $request->validate([
-            'json_file' => 'required|file',
-        ]);
-
-
         $jsonFile = $request->file('json_file');
-
 
         $jsonData = json_decode(file_get_contents($jsonFile->getPathname()), true);
 

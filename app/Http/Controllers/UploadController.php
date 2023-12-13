@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UploadRequest;
 use App\Models\Nature;
 use Symfony\Component\HttpFoundation\Response;
 
 class UploadController extends Controller
 {
-    public function uploadJson(Request $request)
+    public function uploadJson(UploadRequest $request)
     {
-        $request->validate([
-            'json_file' => 'required|file|mimes:json',
-        ]);
-
         $jsonFile = $request->file('json_file');
 
         $jsonData = json_decode(file_get_contents($jsonFile->getPathname()), true);
