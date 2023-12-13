@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\AbilityRequest;
 use App\Models\Ability;
 use Symfony\Component\HttpFoundation\Response;
 
 class AbilityController extends Controller
 {
-    public function store(Request $request)
+    public function store(AbilityRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:20|unique:abilities',
-        ]);
         try {
             $ability = Ability::create([
                 'name' => $request->input('name'),
@@ -44,14 +41,10 @@ class AbilityController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(AbilityRequest $request, $id)
     {
         try {
             $ability = Ability::findOrFail($id);
-
-            $request->validate([
-                'name' => 'required|string|max:20|unique:abilities',
-            ]);
 
             $ability->update([
                 'name' => $request->input('name'),
