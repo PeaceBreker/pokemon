@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SkillRequest;
 use App\Models\Skill;
 use Symfony\Component\HttpFoundation\Response;
 
 class SkillController extends Controller
 {
-    public function store(Request $request)
+    public function store(SkillRequest $request)
     {
-        $request->validate([
-            'name' => 'required|unique:skills|max:20',
-        ]);
-
         $skill = Skill::create([
             'name' => $request->input('name'),
         ]);
@@ -31,12 +27,8 @@ class SkillController extends Controller
         return response()->json(['data' => $skills], Response::HTTP_OK);
     }
 
-    public function update(Request $request, $id)
+    public function update(SkillRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|unique:skills|max:20',
-        ]);
-
         $skill = Skill::find($id);
 
         if (!$skill) {
