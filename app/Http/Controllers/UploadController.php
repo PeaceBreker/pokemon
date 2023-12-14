@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UploadRequest;
 use App\Models\Nature;
+use Symfony\Component\HttpFoundation\Response;
 
 class UploadController extends Controller
 {
-    public function uploadJson(Request $request)
-{
-    $request->validate([
-        'json_file' => 'required|file|mimes:json',
-    ]);
+    public function uploadJson(UploadRequest $request)
+    {
+        $jsonFile = $request->file('json_file');
 
-    $jsonFile = $request->file('json_file');
+        $jsonData = json_decode(file_get_contents($jsonFile->getPathname()), true);
 
-    $jsonData = json_decode(file_get_contents($jsonFile->getPathname()), true);
-    
-    foreach ($jsonData["data"]["pokemon_v2_naturename"] as $item) {
-        Nature::create([
-            'name' => $item['name'],
-        ]);
+        foreach ($jsonData["data"]["pokemon_v2_naturename"] as $item) {
+            Nature::create([
+                'name' => $item['name'],
+            ]);
+        }
+
+        return response()->json(
+            ['success' => config('http_success_message.upload.json_file_saved_successfully')],
+            Response::HTTP_CREATED
+        );
     }
 
-    return response()->json(['message' => 'JSON file uploaded and data saved successfully'], 201);
-} 
-//
 }

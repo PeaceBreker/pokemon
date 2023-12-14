@@ -8,11 +8,8 @@ use Tests\TestCase;
 
 class PokemonDestroyTest extends TestCase
 {
-    //use RefreshDatabase;
     use DatabaseMigrations;
-    /**
-     * A basic feature test example.
-     */
+
     public function test_example(): void
     {
         Pokemon::factory()->create();

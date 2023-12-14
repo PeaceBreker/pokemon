@@ -12,14 +12,10 @@ use Tests\TestCase;
 
 class PokemonShowTest extends TestCase
 {
-    //use RefreshDatabase;
     use DatabaseMigrations;
-    /**
-     * A basic feature test example.
-     */
+
     public function test_example(): void
     {
-        // 基礎假資料生成
         Race::factory()->create(['name' => 'Bulbasaur']);
         Ability::factory()->create(['name' => '硬化']);
         Nature::factory()->create(['name' => '暴怒仔']);
