@@ -9,7 +9,7 @@ use Tests\TestCase;
 class AbilityUpdateTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
     public function test_example(): void
     {
         Ability::factory()->create();

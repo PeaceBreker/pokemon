@@ -8,7 +8,7 @@ use Tests\TestCase;
 class AbilityStoreTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
     public function test_example(): void
     {
         $ability = [

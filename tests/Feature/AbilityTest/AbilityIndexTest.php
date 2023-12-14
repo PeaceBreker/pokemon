@@ -8,7 +8,7 @@ use Tests\TestCase;
 class AbilityIndexTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
     public function test_example(): void
     {
         $response = $this->get('api/abilities');

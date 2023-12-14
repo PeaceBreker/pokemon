@@ -9,7 +9,7 @@ use Tests\TestCase;
 class SKillUpdateTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
     public function test_example(): void
     {
         Skill::factory()->create();

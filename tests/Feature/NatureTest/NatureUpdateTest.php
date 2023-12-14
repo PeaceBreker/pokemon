@@ -8,8 +8,8 @@ use Tests\TestCase;
 
 class NatureUpdateTest extends TestCase
 {
-    use DatabaseMigrations;    
-
+    use DatabaseMigrations;
+       
     public function test_example(): void
     {
         Nature::factory()->create();

@@ -33,6 +33,8 @@ class PokemonController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         }
+        // 如果是true就繼續往下跑
+        $evolution['skill'] = json_encode($evolution['skill']);
 
         $evolution['skill'] = json_encode($evolution['skill']);
 

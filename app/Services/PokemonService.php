@@ -32,7 +32,6 @@ class PokemonService
             $targetLevel = $data['level'];
             $raceId = $pokemon['race_id'];
         }
-
         $pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon-species/{$raceId}";
         $response = Http::get($pokemonApiUrl);
 
