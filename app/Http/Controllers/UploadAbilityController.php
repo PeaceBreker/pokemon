@@ -6,7 +6,7 @@ use App\Http\Requests\UploadRequest;
 use App\Models\Ability;
 use Symfony\Component\HttpFoundation\Response;
 
-class UploadTwoController extends Controller
+class UploadAbilityController extends Controller
 {
     public function uploadJson(UploadRequest $request)
     {

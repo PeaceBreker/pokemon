@@ -12,7 +12,7 @@ class RaceGetSkillsByRaceIdTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testRaceSkillsByRaceId(): void
     {
         Race::factory()->create();
         Skill::factory()->count(4)->create();

@@ -11,7 +11,7 @@ class Pokemon extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'pokemons'; // 确保与数据库中的表格名称一致
+    protected $table = 'pokemons';
 
     public function nature()
     {

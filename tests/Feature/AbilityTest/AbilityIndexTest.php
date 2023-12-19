@@ -9,7 +9,7 @@ class AbilityIndexTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testAbilityIndex(): void
     {
         $response = $this->get('api/abilities');
 

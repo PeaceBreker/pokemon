@@ -9,7 +9,7 @@ class SkillStoreTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testSkillStore(): void
     {
         $skill = [
             'name' => "肉蛋蔥雞"            

@@ -9,7 +9,7 @@ class RaceGetAllRaceTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testRaceGetAllRace(): void
     {
         $response = $this->get('/api/races');
 

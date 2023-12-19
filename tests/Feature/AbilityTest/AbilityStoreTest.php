@@ -9,7 +9,7 @@ class AbilityStoreTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testAbilityStore(): void
     {
         $ability = [
             'name' => "超強新秀"

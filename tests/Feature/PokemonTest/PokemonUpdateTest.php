@@ -10,7 +10,7 @@ class PokemonUpdateTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_example(): void
+    public function testPokemonUpdate(): void
     {
         Pokemon::factory()->create();
 

@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class SKillIndexTest extends TestCase
+class SkillIndexTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testSkillIndex(): void
     {
         $response = $this->get('/api/skills');
 

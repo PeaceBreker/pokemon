@@ -10,7 +10,7 @@ class RaceGetRaceByNameTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testRaceGetRaceByName(): void
     {
         Race::factory()->create(['name'=>'Bulbasaur']);
         

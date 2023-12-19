@@ -1,7 +1,7 @@
 <?php
 
 
-function skillLogic($skill, $skillTags)
+function judgeSkillLearning($skill, $skillTags)
 {
     foreach ($skill as $skills) {
         if (!in_array($skills, $skillTags)) {

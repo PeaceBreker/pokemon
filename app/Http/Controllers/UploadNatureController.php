@@ -6,7 +6,7 @@ use App\Http\Requests\UploadRequest;
 use App\Models\Nature;
 use Symfony\Component\HttpFoundation\Response;
 
-class UploadController extends Controller
+class UploadNatureController extends Controller
 {
     public function uploadJson(UploadRequest $request)
     {

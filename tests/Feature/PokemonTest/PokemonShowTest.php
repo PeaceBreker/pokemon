@@ -14,7 +14,7 @@ class PokemonShowTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_example(): void
+    public function testPokemonShow(): void
     {
         Race::factory()->create(['name' => 'Bulbasaur']);
         Ability::factory()->create(['name' => '硬化']);

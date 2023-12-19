@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class NatureStoreTest extends TestCase
 {
-    public function test_example(): void
+    public function testNatureStore(): void
     {
         $nature = [
         'name' => "爆炸"            

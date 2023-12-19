@@ -12,13 +12,12 @@ class ImportPokemonData extends Command
 {
     protected $signature = 'import:pokemon-races';
     protected $description = 'Import Pokemon data including Races and Skill Tags';
+    const START_ID = 1;
+    const END_ID = 1000;
 
     public function handle()
     {
-        $startId = 1;
-        $endId = 1000;
-
-        for ($pokemonId = $startId; $pokemonId <= $endId; $pokemonId++) {
+        for ($pokemonId = self::START_ID; $pokemonId <= self::END_ID; $pokemonId++) {
             $response = Http::get("https://pokeapi.co/api/v2/pokemon/$pokemonId");
             $pokemonInfo = $response->json();
 

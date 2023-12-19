@@ -22,9 +22,9 @@ class PokemonController extends Controller
     {
         $data = $request->validated();
 
-        $evolution = $this->evolutionAndLearnSkill->evolution($data, false);
+        $evolution = $this->evolutionAndLearnSkill->evolve($data, false);
 
-        $validator = $this->evolutionAndLearnSkill->learnSkillLogic($evolution);
+        $validator = $this->evolutionAndLearnSkill->handleSkillLearning($evolution);
 
         if ($validator == false) {
 
@@ -33,7 +33,7 @@ class PokemonController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         }
-        // 如果是true就繼續往下跑
+
         $evolution['skill'] = json_encode($evolution['skill']);
 
         $evolution['skill'] = json_encode($evolution['skill']);
@@ -79,7 +79,7 @@ class PokemonController extends Controller
             );
         }
         if ($request->has('level')) {
-            $this->evolutionAndLearnSkill->evolution($data, $id);
+            $this->evolutionAndLearnSkill->evolve($data, $id);
         }
 
         if ($request->has('skill')) {
@@ -88,7 +88,7 @@ class PokemonController extends Controller
             $skill = $data['skill'];
             $skill = array_map('intval', $skill);
 
-            $result = skillLogic($skill, $skillTags);
+            $result = judgeSkillLearning($skill, $skillTags);
             if ($result == false) {
                 return response()->json(
                     ['error' => config('http_error_message.general.pokémon_cannot_learn_these_skills')],

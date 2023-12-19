@@ -10,7 +10,7 @@ class NatureUpdateTest extends TestCase
 {
     use DatabaseMigrations;
        
-    public function test_example(): void
+    public function testNatureUpdate(): void
     {
         Nature::factory()->create();
         $response = $this->put('api/natures/1', ['name' => "躁鬱症"]);

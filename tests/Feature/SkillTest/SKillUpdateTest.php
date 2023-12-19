@@ -6,11 +6,11 @@ use App\Models\Skill;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class SKillUpdateTest extends TestCase
+class SkillUpdateTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testSkillUpdate(): void
     {
         Skill::factory()->create();
 

@@ -10,11 +10,11 @@ use App\Models\Skilltag;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class PokemonControllerCreateTest extends TestCase
+class PokemonStoreTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_example(): void
+    public function testPokemonStore(): void
     {
         Race::factory()
             ->count(3)

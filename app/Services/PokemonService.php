@@ -9,20 +9,20 @@ use Illuminate\Support\Facades\Http;
 
 class PokemonService
 {
-    public function learnSkillLogic($evolution)
+    public function handleSkillLearning($evolution)
     {
         $race = $evolution['race_id'];
         $skillTags = Skilltag::where('race_id', $race)->pluck('skill_id')->all();
         $skill = $evolution['skill'];
         $skill = array_map('intval', $skill);
-        $result = skillLogic($skill, $skillTags);
+        $result = judgeSkillLearning($skill, $skillTags);
         if ($result == true) {
             return true;
         } else {
             return false;
         }
     }
-    public function evolution($data, $id)
+    public function evolve($data, $id)
     {
         if ($id == false) {
             $targetLevel = $data['level'];

@@ -9,7 +9,7 @@ class PokemonIndexTest extends TestCase
 {
     use DatabaseMigrations;
     
-    public function test_example(): void
+    public function testPokemonIndex(): void
     {
         $response = $this->get('/api/pokemons');
 
