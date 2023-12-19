@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbilityController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\NatureController;
 use App\Http\Controllers\RaceController;
@@ -21,9 +22,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+ // 可以在這裡添加其他需要身份驗證的路由
 });
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/pokemons', [PokemonController::class, 'store']);
 Route::get('/pokemons', [PokemonController::class, 'index']);
