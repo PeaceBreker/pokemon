@@ -10,6 +10,12 @@ return [
         'not_found' => 'Not Found',
         'pokémon_cannot_learn_these_skills' => 'Pokémon cannot learn these skills',
     ],
+
+    'auth' => [
+            'unauthorized' => 'Unauthorized',
+            'forbidden' => 'Forbidden',
+            'invalid_token' => 'Invalid Token',
+    ]
 ];
 
 ?>

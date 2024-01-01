@@ -11,6 +11,9 @@ return [
     'upload' => [
         'json_file_saved_successfully' => 'JSON file uploaded and data saved successfully',
     ],
+    'auth' => [
+        'registration_successfully' =>
+        'Registration successful, please check your email to complete the verification.',
+        'logout_successfully' => 'Successfully logged out',
+    ]
 ];
-
-?>

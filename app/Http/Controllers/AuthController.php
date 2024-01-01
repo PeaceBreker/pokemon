@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -33,7 +34,10 @@ class AuthController extends Controller
         // 發送驗證郵件
         Mail::to($user->email)->send(new VerificationMail($user));
 
-        return jason(['success' => '註冊成功，請檢查您的郵箱以完成驗證']);
+        return response()->jason(
+            ['success' => config('http_success_message.auth.registration_successfully')],
+            Response::HTTP_CREATED
+        );
     }
 
 
@@ -48,8 +52,8 @@ class AuthController extends Controller
             return response()->json(compact('token'));
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
-
+        return response()->json(['error' => config('http_error_message.auth.unauthorized')],
+        Response::HTTP_UNAUTHORIZED);
     }
 
     public function logout(Request $request)
@@ -61,15 +65,23 @@ class AuthController extends Controller
             // 如果令牌驗證通過，加進黑名單，使其失效
             if ($token) {
                 JWTAuth::parseToken()->invalidate();
-                return response()->json(['success' => 'Successfully logged out']);
+                return response()->json(
+                    ['success' => config('http_success_message.auth.logout_successfully')],
+                    Response::HTTP_OK
+                );
             } else {
                 // 如果令牌無效，返回錯誤訊息
-                return response()->json(['error' => 'Forbidden'], 403);
+                return response()->json(
+                    ['error' => config('http_error_message.auth.invalid_token')],
+                    Response::HTTP_UNAUTHORIZED
+                );
             }
         } catch (\Exception $e) {
             // 處理可能的異常，例如令牌無效等
-            return response()->json(['error' => 'Forbidden'], 403);
+            return response()->json(
+                ['error' => config('http_error_message.auth.forbidden')],
+                Response::HTTP_FORBIDDEN
+            );
         }
     }
-
 }
