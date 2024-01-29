@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerificationController;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
+use BeyondCode\LaravelWebSockets\WebSockets\Channels\PrivateChannel;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +22,4 @@ Route::get('/', function () {
 });
 
 Route::get('/email/verify/{code}', [VerificationController::class, 'verify'])->name('verification.verify');
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FriendRequestNotificationEvent;
 use App\Http\Requests\AcceptFriendRequest;
 use App\Http\Requests\RejectFriendRequest;
 use App\Models\Friendship;
@@ -35,13 +36,19 @@ class FriendshipController extends Controller
         }
 
         // 創建好友邀請
-        Friendship::create([
-            'user_id' => $sender->id,
-            'friend_id' => $recipient->id,
-            'status' => 'pending',
-        ]);
+        // Friendship::create([
+        //     'user_id' => $sender->id,
+        //     'friend_id' => $recipient->id,
+        //     'status' => 'pending',
+        // ]);
 
-
+        // 獲取寄送者ID
+        $senderName = $sender->name;
+        // 獲取接收者ID
+        $friendUserId = $recipient->id;
+        // 通过事件系统觸發Ws邏輯好友邀请通知，指定私有频道
+        event(new FriendRequestNotificationEvent($friendUserId, $senderName));
+        
         return response()->json(
             ['success' =>
             config('http_success_message.friendship.invite_sent_successfully')],
